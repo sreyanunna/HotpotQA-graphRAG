@@ -41,7 +41,7 @@ The intended audience spans from non-technical enterprise employees querying mee
 
 ## Motivation
 
-Current tools for translating natural language to graph queries are insufficient. **NeoConverse**, Neo4j's state-of-the-art solution, achieves only ~45% execution accuracy on complex queries due to semantic misinterpretation of user intent.
+Current tools for translating natural language to graph queries are insufficient. **NeoConverse**, Neo4j's state-of-the-art solution, achieves only 45% execution accuracy on complex queries due to semantic misinterpretation of user intent.
 
 Additionally, existing knowledge retrieval approaches suffer from three key gaps:
 
@@ -105,7 +105,7 @@ The final system is a **six-stage orchestrated pipeline**:
 ```
 ## Pipeline Evolution
 
-### Stage 1: Traditional RAG Baseline
+### Stage 1: Traditional RAG (Baseline)
 
 Initial experiments used **LangChain's `RecursiveCharacterTextSplitter`** on Shakespeare's plays (chosen for similar language patterns but different content — enabling complex multi-hop test cases).
 
@@ -122,17 +122,11 @@ Extensive model comparison for SPO triple generation:
 |---|---|---|
 | Microsoft Phi2 | 2B | High hallucination, repetitive triples — unsuitable for production |
 | Qwen2.5-7B-Instruct | 7B | Adequate quality but **56s/chunk** → 21+ hours for full dataset |
-| **OpenAI API** | — | ✅ Fastest + highest quality, clean SPO with minimal hallucination |
+| **OpenAI API** | — | Fastest + highest quality, clean SPO with minimal hallucination |
 
 Triples embedded with `all-MiniLM-L6-v2`, achieving **0.84+ cosine similarity** on complex queries like *"Who did Hamlet kill?"*
 
 ### Stage 3: HippoRAG-Inspired Final Pipeline
-
-See [HippoRAG section below](#hipporag-neurobiological-inspiration) for full detail.
-
----
-
-## HippoRAG: Neurobiological Inspiration
 
 This pipeline draws its core architectural inspiration from [**HippoRAG**](https://arxiv.org/abs/2405.14831) (Gutiérrez et al., 2024) — a neurobiologically-inspired retrieval framework that revolutionises traditional RAG by mimicking the **human hippocampal memory indexing mechanism**.
 
@@ -244,28 +238,16 @@ Additional limitations:
 
 ```
 📦 knowledge-graph-hybrid-pipeline/
-├── 📁 pipeline-code/
-│   ├── 01_document_ingestion.py       # Text chunking via LangChain
-│   ├── 02_triple_extraction.py        # SPO extraction via OpenAI API
-│   ├── 03_kg_construction.py          # RDF graph construction
-│   ├── 04_query_understanding.py      # NL → SPO via LLM
-│   ├── 05_semantic_entity_matching.py # Cosine similarity entity retrieval
-│   ├── 06_subgraph_extraction.py      # Bidirectional BFS traversal
-│   ├── 07_sparql_generation.py        # Hybrid SPARQL query construction
-│   ├── 08_query_execution.py          # Graph query execution + fallback
-│   └── 09_answer_generation.py        # LLM answer synthesis
+├── pipeline-code/
 ├── 📁 api/
 │   └── main.py                        # FastAPI interface
 ├── 📁 data/
-│   ├── raw/                           # Input text documents
 │   ├── triples/                       # Extracted SPO CSVs          [coming soon]
 │   ├── embeddings/                    # Serialised embeddings        [coming soon]
 │   └── graphs/                        # RDF graph serialisations     [coming soon]
 ├── 📁 evaluation/
 │   ├── hotpotqa_eval_subset.csv       # Evaluation queries           [coming soon]
 │   └── results_analysis.ipynb        # Performance analysis notebook
-├── 📁 notebooks/
-│   └── pipeline_demo.ipynb            # End-to-end walkthrough
 ├── requirements.txt
 └── README.md
 ```
@@ -282,7 +264,7 @@ python >= 3.9
 ### Installation
 
 ```bash
-git clone https://github.com/esemsc-sn2824/knowledge-graph-hybrid-pipeline.git
+git clone https://github.com/sreyanunna/HotpotQA-graphRAG.git
 cd knowledge-graph-hybrid-pipeline
 pip install -r requirements.txt
 ```
