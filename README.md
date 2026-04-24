@@ -12,10 +12,9 @@
 - [Overview](#overview)
 - [Motivation](#motivation)
 - [Pipeline Architecture](#pipeline-architecture)
-- [Design Philosophy: The S-P-O Structure](#design-philosophy-the-s-p-o-structure)
 - [Pipeline Evolution](#pipeline-evolution)
 - [HippoRAG: Neurobiological Inspiration](#hipporag-neurobiological-inspiration)
-- [Datasets](#datasets)
+- [Dataset Description](#datasets)
 - [Evaluation & Results](#evaluation--results)
 - [Limitations & Future Work](#limitations--future-work)
 - [Tech Stack](#tech-stack)
@@ -104,36 +103,6 @@ The final system is a **six-stage orchestrated pipeline**:
         ▼
 💬 NATURAL LANGUAGE ANSWER
 ```
----
-
-## Design Philosophy: The S-P-O Structure
-
-The Subject-Predicate-Object (SPO) triple format was chosen as the foundational query structure after extensive experimentation — and it reflects more than a technical choice. It embodies a **commitment to interpretable, disciplined knowledge discovery**.
-
-### Why SPO?
-
-SPO mirrors the natural structure of a knowledge graph: every fact is a relationship between two entities, connected by a predicate. This structural symmetry means the shape of the knowledge graph **dictates the shape of the query itself** — making the pipeline both predictable and transparent.
-
-### Constraint: One Unknown Per Query
-
-By constraining each query to have exactly **one unknown entity**, the pipeline achieves an optimal balance between semantic expressiveness and computational tractability. This design enables robust question answering while maintaining full reasoning transparency.
-
-### Evolution from OpenIE
-
-Early iterations using OpenIE-style systems revealed a critical noise problem. Example redundant triples extracted from the same sentence:
-
-```
-("Katherina", "is called", "Shrew")
-("Shrew", "refers to", "Katherina")        # same fact, reversed
-("Katherina", "is known as", "Shrew")      # same fact, paraphrased
-("it", "blast", "me")                      # nonsensical, repeated 14×
-("prologue", "enters", "prologue")         # illogical self-reference
-```
-
-This drove the move toward a **structured LLM-based extraction** approach using OpenAI's API, which delivered significantly cleaner triple quality with minimal hallucination.
-
----
-
 ## Pipeline Evolution
 
 ### Stage 1: Traditional RAG Baseline
@@ -178,7 +147,7 @@ This pipeline draws its core architectural inspiration from [**HippoRAG**](https
 HippoRAG's **Personalised PageRank (PPR)** algorithm activates relevant entity neighbourhoods, enabling single-step multi-hop reasoning — achieving **10–20× cost reduction** and **6–13× speed improvements** over iterative methods like IRCoT, with up to **20% performance gains** on MuSiQue and 2WikiMultiHopQA benchmarks.
 
 
-## Datasets
+## Dataset Description
 
 ### HotpotQA — Evaluation Benchmark
 
@@ -231,34 +200,6 @@ This pipeline is evaluated against **[HotpotQA](https://hotpotqa.github.io/)** (
 > **High entity match accuracy (0.83) does not guarantee high F1 scores (0.414).**  
 > This reveals that the bottleneck lies downstream — in relationship extraction and answer generation — rather than in entity retrieval itself. This finding directly motivates future work on multi-hop reasoning chains.
 
-### Sample Query Outcomes
-
-**✅ Successful Direct Match**
-```
-Query:    "Who won the President's Cup in 2007?"
-Response: "The President's Cup in 2007 was won by The Lewiston Maineiacs."
-Entity Match Accuracy: 0.9 | F1: 0.800
-```
-
-**⚠️ Partial Match — LLM acts as quality filter**
-```
-Query:    "What venue hosted the Ali vs. Liston fight in 1965?"
-SPARQL:   Brown State Fishing Lake (irrelevant)
-Response: "The information provided does not specify the venue for the Ali vs. Liston 
-           fight. It specifies that the venue was hosted at Brown State Fishing Lake."
-```
-
-**❌ No Result Found**
-```
-Query:    "Are the Laleli Mosque and Esma Sultan Mansion in the same neighbourhood?"
-Response: "No facts were found regarding the locations of Laleli Mosque and 
-           Esma Sultan Mansion in the same neighbourhood."
-```
-
-The pipeline's ability to recognise and communicate failure gracefully — rather than hallucinating — is a deliberate and significant design outcome.
-
----
-
 ## Limitations & Future Work
 
 ### Current Limitations
@@ -303,7 +244,7 @@ Additional limitations:
 
 ```
 📦 knowledge-graph-hybrid-pipeline/
-├── 📁 pipeline/
+├── 📁 pipeline-code/
 │   ├── 01_document_ingestion.py       # Text chunking via LangChain
 │   ├── 02_triple_extraction.py        # SPO extraction via OpenAI API
 │   ├── 03_kg_construction.py          # RDF graph construction
@@ -328,7 +269,6 @@ Additional limitations:
 ├── requirements.txt
 └── README.md
 ```
-
 ---
 
 ## Getting Started
@@ -412,5 +352,3 @@ This project was supervised by **Dr. Christopher Pain** and **Dr. Olga Buskin** 
 AI tools used during development: ChatGPT (brainstorming & literature review), Claude Sonnet 4 (code structure & LaTeX), Gemini 1.5 Pro (Google Colab integration), Perplexity Pro (research paper discovery & feedback).
 
 ---
-
-*Built with 🧠 at Imperial College London · 2025*
