@@ -233,26 +233,6 @@ Additional limitations:
 | Experiment Tracking | CSV export + manual evaluation |
 
 ---
-
-## Repository Structure
-
-```
-📦 knowledge-graph-hybrid-pipeline/
-├── pipeline-code/
-├── 📁 api/
-│   └── main.py                        # FastAPI interface
-├── 📁 data/
-│   ├── triples/                       # Extracted SPO CSVs          [coming soon]
-│   ├── embeddings/                    # Serialised embeddings        [coming soon]
-│   └── graphs/                        # RDF graph serialisations     [coming soon]
-├── 📁 evaluation/
-│   ├── hotpotqa_eval_subset.csv       # Evaluation queries           [coming soon]
-│   └── results_analysis.ipynb        # Performance analysis notebook
-├── requirements.txt
-└── README.md
-```
----
-
 ## Getting Started
 
 ### Prerequisites
