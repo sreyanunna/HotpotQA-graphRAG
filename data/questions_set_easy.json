@@ -1,0 +1,74 @@
+[
+  {
+    "Question": "Who directed The Family Man?",
+    "Subject": "?",
+    "Predicate": "directed_by",
+    "Object": "The_Family_Man"
+  },
+  {
+    "Question": "Who scored a 97th-minute goal against Sheffield Wednesday?",
+    "Subject": "?",
+    "Predicate": "scored_goal_against",
+    "Object": "Sheffield_Wednesday"
+  },
+  {
+    "Question": "Who won the President's Cup in 2007?",
+    "Subject": "?",
+    "Predicate": "won",
+    "Object": "President's_Cup_2007"
+  },
+  {
+    "Question": "What venue hosted the Ali vs. Liston fight in 1965?",
+    "Subject": "?",
+    "Predicate": "hosted",
+    "Object": "Ali_vs_Liston_fight_1965"
+  },
+  {
+    "Question": "The Colisée is what to Lewiston?",
+    "Subject": "The_Colisée",
+    "Predicate": "?",
+    "Object": "Lewiston"
+  },
+  {
+    "Question": "What did Ed Wood do related to Plan 9 from Outer Space?",
+    "Subject": "Ed_Wood",
+    "Predicate": "do_related_to",
+    "Object": "?"
+  },
+  {
+    "Question": "What is the relationship of the Maine Nordiques to the NAHL?",
+    "Subject": "Maine_Nordiques",
+    "Predicate": "?",
+    "Object": "NAHL"
+  },
+  {
+    "Question": "Who broke up with Dolores Fuller?",
+    "Subject": "?",
+    "Predicate": "broke_up_with",
+    "Object": "Dolores_Fuller"
+  },
+  {
+    "Question": "Which team did Matthew Wicks join?",
+    "Subject": "Matthew_Wicks",
+    "Predicate": "join",
+    "Object": "?"
+  },
+  {
+    "Question": "What did Ed Wood write in 1965?",
+    "Subject": "Ed_Wood",
+    "Predicate": "wrote",
+    "Object": "?"
+  },
+  {
+    "Question": "What football club did Alex Ferguson manage?",
+    "Subject": "Alex_Ferguson",
+    "Predicate": "manage",
+    "Object": "?"
+  },
+  {
+    "Question": "What football club was managed by Alex Ferguson?",
+    "Subject": "?",
+    "Predicate": "managed_by",
+    "Object": "Alex_Ferguson"
+  }
+]
