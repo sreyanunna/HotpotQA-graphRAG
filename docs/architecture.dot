@@ -1,0 +1,91 @@
+digraph kg_qa_pipeline {
+  graph [
+    rankdir=LR,
+    bgcolor="transparent",
+    pad="0.35",
+    nodesep="0.55",
+    ranksep="0.75",
+    splines=polyline,
+    fontname="Helvetica"
+  ];
+
+  node [
+    shape=rect,
+    style="rounded,filled",
+    penwidth=1.4,
+    color="#24435f",
+    fillcolor="#f5f8fb",
+    fontname="Helvetica",
+    fontsize=12,
+    margin="0.14,0.10"
+  ];
+
+  edge [
+    color="#536878",
+    penwidth=1.4,
+    arrowsize=0.8,
+    fontname="Helvetica",
+    fontsize=10
+  ];
+
+  question [
+    label="Natural-language\nquestion",
+    fillcolor="#e8f2ff"
+  ];
+
+  parser [
+    label="LLM query parser\n(subject, predicate, object)"
+  ];
+
+  entity_matcher [
+    label="Entity linker\nSentenceTransformers"
+  ];
+
+  local_subgraph [
+    label="Local subgraph\nRDFLib + NetworkX"
+  ];
+
+  predicate_matcher [
+    label="Predicate matcher\nvector similarity"
+  ];
+
+  sparql [
+    label="SPARQL generator"
+  ];
+
+  execution [
+    label="RDFLib execution\nagainst Turtle graph"
+  ];
+
+  answer [
+    label="Readable answer\n+ batch results",
+    fillcolor="#eaf7ef"
+  ];
+
+  graph_asset [
+    label="data/output_graph.ttl\nRDF knowledge graph",
+    shape=cylinder,
+    fillcolor="#fff7e6",
+    color="#8a6426"
+  ];
+
+  questions_asset [
+    label="data/questions_set_easy.json\ncurated questions",
+    shape=note,
+    fillcolor="#fff7e6",
+    color="#8a6426"
+  ];
+
+  question -> parser;
+  parser -> entity_matcher;
+  entity_matcher -> local_subgraph;
+  local_subgraph -> predicate_matcher;
+  predicate_matcher -> sparql;
+  sparql -> execution;
+  execution -> answer;
+
+  graph_asset -> entity_matcher [label="labels"];
+  graph_asset -> local_subgraph [label="triples"];
+  graph_asset -> execution [label="SPARQL"];
+  questions_asset -> question [label="batch"];
+}

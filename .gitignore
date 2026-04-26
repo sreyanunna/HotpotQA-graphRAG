@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+results/subgraphs/
+results/batch_results.csv
+*.Zone.Identifier
+*:Zone.Identifier
